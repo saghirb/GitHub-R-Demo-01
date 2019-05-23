@@ -19,7 +19,18 @@ summary(ChickWeight)
 
 # Chick Weight Plot
 
-```{r CWplot}
-with(ChickWeight, plot(Time, weight, col=Diet))
+```{r CWplot, message=FALSE}
+library(ggplot2)
+library(dplyr)
+
+ChickWeight %>% 
+  ggplot(aes(Time, weight, colour=Diet)) +
+  geom_point() +
+  facet_wrap(~Diet) + 
+  stat_summary(fun.y="mean", geom="line", colour="black") +
+  theme(legend.position = "none") +
+  ggtitle("Chick Weight over Time by Diet") +
+  xlab("Time (days)") +
+  ylab("Weight (grams)")
 ```
 
